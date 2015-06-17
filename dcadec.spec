@@ -9,7 +9,7 @@ Name:		dcadec
 Version:	0.0.0
 %define	snap	20150606
 %define	gitref	2a9186e34ce557d3af1a20f5b558d1e6687708b9
-Release:	0.%{snap}.1
+Release:	0.%{snap}.2
 License:	LGPL v2.1+
 Group:		Applications/Sound
 Source0:	https://github.com/foo86/dcadec/archive/2a9186e34ce557d3af1a20f5b558d1e6687708b9/%{name}-%{snap}.tar.gz
@@ -17,7 +17,8 @@ Source0:	https://github.com/foo86/dcadec/archive/2a9186e34ce557d3af1a20f5b558d1e
 URL:		https://github.com/foo86/dcadec
 Requires:	%{name}-libs = %{version}-%{release}
 # dcadec binary
-Conflicts:	libdts
+Conflicts:	libdts < 0.0.5-4
+Obsoletes:	libdts-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
