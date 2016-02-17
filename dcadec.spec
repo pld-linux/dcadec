@@ -5,20 +5,17 @@
 Summary:	Free DTS Coherent Acoustics decoder with support for HD extensions
 Summary(pl.UTF-8):	Wolnodostępny dekoder DTS Coherent Acoustics z obsługą rozszerzeń HD
 Name:		dcadec
-# see Makefile
-Version:	0.0.0
-%define	snap	20150606
-%define	gitref	2a9186e34ce557d3af1a20f5b558d1e6687708b9
-Release:	0.%{snap}.2
+Version:	0.2.0
+Release:	1
 License:	LGPL v2.1+
 Group:		Applications/Sound
-Source0:	https://github.com/foo86/dcadec/archive/2a9186e34ce557d3af1a20f5b558d1e6687708b9/%{name}-%{snap}.tar.gz
-# Source0-md5:	37df95f78aa614ef1adbadc6b466c4b4
+Source0:	https://github.com/foo86/dcadec/archive/v%{version}.tar.gz
+# Source0-md5:	14005424ad2ee56ce3d33b921ef749cb
 URL:		https://github.com/foo86/dcadec
 Requires:	%{name}-libs = %{version}-%{release}
 # dcadec binary
-Conflicts:	libdts < 0.0.5-4
 Obsoletes:	libdts-tools
+Conflicts:	libdts < 0.0.5-4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,8 +28,8 @@ Supported features:
 - Decoding of High Resolution streams with up to 7.1 channels and
   extended bitrate
 - Decoding of 96/24 core streams
-- Lossless decoding of Master Audio streams with up to 7.1 channels, 192
-  kHz
+- Lossless decoding of Master Audio streams with up to 7.1 channels,
+  192 kHz
 - Downmixing to stereo and 5.1 using embedded coefficients
 
 Features not implemented:
@@ -74,8 +71,8 @@ Supported features:
 - Decoding of High Resolution streams with up to 7.1 channels and
   extended bitrate
 - Decoding of 96/24 core streams
-- Lossless decoding of Master Audio streams with up to 7.1 channels, 192
-  kHz
+- Lossless decoding of Master Audio streams with up to 7.1 channels,
+  192 kHz
 - Downmixing to stereo and 5.1 using embedded coefficients
 
 Features not implemented:
@@ -127,7 +124,7 @@ Static libdcadec library.
 Statyczna biblioteka libdcadec.
 
 %prep
-%setup -q -n %{name}-%{gitref}
+%setup -q
 
 %build
 CFLAGS="%{rpmcflags}" \
@@ -168,12 +165,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libdcadec.so
+%attr(755,root,root) %{_libdir}/libdcadec.so.0
+%attr(755,root,root) %ghost %{_libdir}/libdcadec.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/libdcadec
 %{_pkgconfigdir}/dcadec.pc
+%attr(755,root,root) %{_libdir}/libdcadec.so
 
 %if %{with static_libs}
 %files static
